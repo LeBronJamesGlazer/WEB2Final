@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Manager - Login</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Expense Manager</h1>
+    </header>
+
+    <div class="container">
+        <div id="login-form" class="form-container">
+            <h2>Login</h2>
+            <p id="error-msg" style="color:red"></p>
+            <input type="email" id="login-email" placeholder="Email">
+            <input type="password" id="login-password" placeholder="Password">
+            <button class="btn" onclick="login()">Login</button>
+            <p>Don't have an account? <a href="#" onclick="toggleForms()">Register</a></p>
+        </div>
+
+        <div id="register-form" class="form-container hidden">
+            <h2>Register</h2>
+            <p id="reg-error-msg" style="color:red"></p>
+            <input type="text" id="reg-username" placeholder="Username">
+            <input type="email" id="reg-email" placeholder="Email">
+            <input type="password" id="reg-password" placeholder="Password">
+            <select id="reg-role">
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+                <option value="premium">Premium</option>
+            </select>
+            <button class="btn" onclick="register()">Register</button>
+            <p>Already have an account? <a href="#" onclick="toggleForms()">Login</a></p>
+        </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>

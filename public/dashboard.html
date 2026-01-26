@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Manager - Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Expense Manager</h1>
+        <button onclick="logout()" style="float: right; margin: 10px; background: red; color: white; border: none; padding: 5px;">Logout</button>
+        <span id="user-display" style="float: right; margin: 15px; font-weight: bold;"></span>
+    </header>
+
+    <div class="container">
+        <!-- Summary Section -->
+        <div style="display: flex; justify-content: space-between; margin-bottom: 20px; text-align: center;">
+            <div style="background: white; padding: 15px; width: 30%; border-radius: 5px; box-shadow: 0 0 5px rgba(0,0,0,0.1);">
+                <h4>Your Balance</h4>
+                <h2 id="balance">$0.00</h2>
+            </div>
+            <div style="background: white; padding: 15px; width: 30%; border-radius: 5px; box-shadow: 0 0 5px rgba(0,0,0,0.1); border-bottom: 5px solid green;">
+                <h4>Income</h4>
+                <h2 id="money-plus" style="color: green;">+$0.00</h2>
+            </div>
+            <div style="background: white; padding: 15px; width: 30%; border-radius: 5px; box-shadow: 0 0 5px rgba(0,0,0,0.1); border-bottom: 5px solid red;">
+                <h4>Expense</h4>
+                <h2 id="money-minus" style="color: red;">-$0.00</h2>
+            </div>
+        </div>
+
+        <!-- Chart Section -->
+        <div style="background: white; padding: 20px; border-radius: 5px; margin-bottom: 20px; box-shadow: 0 0 5px rgba(0,0,0,0.1);">
+            <canvas id="myChart"></canvas>
+        </div>
+
+        <h3>Add New Transaction</h3>
+        <div class="form-container" style="max-width: 100%;">
+            <input type="text" id="t-text" placeholder="Description (e.g., Salary, Rent)">
+            <input type="number" id="t-amount" placeholder="Amount (positive number)">
+            <select id="t-type">
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+            </select>
+            <button class="btn" onclick="addTransaction()">Add Transaction</button>
+        </div>
+
+        <h3>History</h3>
+        <ul id="list" class="transaction-list">
+            <!-- Transactions go here -->
+        </ul>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/app.js"></script>
+    <script>
+        // Init dashboard on load
+        if(!localStorage.getItem('token')) {
+            window.location.href = 'index.html';
+        } else {
+            loadDashboard();
+        }
+    </script>
+</body>
+</html>
