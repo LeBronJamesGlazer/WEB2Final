@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Manager - Reports</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Expense Manager - Reports</h1>
+        <nav style="display: inline-block; margin-left: 20px;"></nav>
+        <button onclick="logout()" style="float: right; margin: 10px; background: red; color: white; border: none; padding: 5px;">Logout</button>
+    </header>
+
+    <div class="container">
+        <h2>Advanced Reports</h2>
+        <div class="form-container" style="max-width: 100%; text-align: left;">
+            <label>Start Date:</label>
+            <input type="date" id="r-start">
+            <label>End Date:</label>
+            <input type="date" id="r-end">
+            <button class="btn" onclick="generateReport()">Generate Report</button>
+        </div>
+
+        <div id="report-results" style="display: none; margin-top: 20px;">
+            <div style="display: flex; justify-content: space-around; background: white; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+                <div><strong>Total Income:</strong> <span id="r-income" style="color: green"></span></div>
+                <div><strong>Total Expense:</strong> <span id="r-expense" style="color: red"></span></div>
+                <div><strong>Net Savings:</strong> <span id="r-net"></span></div>
+            </div>
+
+            <table border="1" style="width: 100%; border-collapse: collapse; background: white;">
+                <thead>
+                    <tr style="background: #f4f4f4;">
+                        <th style="padding: 10px;">Date</th>
+                        <th style="padding: 10px;">Description</th>
+                        <th style="padding: 10px;">Type</th>
+                        <th style="padding: 10px;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="report-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+    <script>
+        // Init
+        if(!localStorage.getItem('token')) window.location.href = 'index.html';
+        
+        // Populate nav logic re-use or just call init
+        // Since we don't have a shared init function for nav in app.js yet (it's inside loadDashboard),
+        // we should probably refactor app.js or just duplicate the nav logic here briefly or make a shared one.
+        // For now, I'll rely on a new `initNav()` function I'll add to app.js
+        initNav();
+    </script>
+</body>
+</html>

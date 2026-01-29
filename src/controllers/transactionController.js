@@ -143,3 +143,48 @@ exports.deleteTransaction = async (req, res, next) => {
     next(error);
   }
 };
+
+// @desc    Get Transaction Report
+// @route   GET /api/transactions/report
+// @access  Private
+exports.getReport = async (req, res, next) => {
+    try {
+        const { startDate, endDate } = req.query;
+
+        if(!startDate || !endDate) {
+            res.status(400);
+            throw new Error('Please provide start and end dates');
+        }
+
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+        // Set end date to end of day
+        end.setHours(23, 59, 59, 999);
+
+        const transactions = await Transaction.find({
+            user: req.user.id,
+            createdAt: { $gte: start, $lte: end }
+        }).sort({ createdAt: -1 });
+
+        const totalIncome = transactions
+            .filter(t => t.type === 'income')
+            .reduce((acc, t) => acc + t.amount, 0);
+
+        const totalExpense = transactions
+            .filter(t => t.type === 'expense')
+            .reduce((acc, t) => acc + t.amount, 0);
+
+        res.status(200).json({
+            success: true,
+            data: transactions,
+            summary: {
+                totalIncome,
+                totalExpense,
+                net: totalIncome - totalExpense
+            }
+        });
+
+    } catch (error) {
+        next(error);
+    }
+};

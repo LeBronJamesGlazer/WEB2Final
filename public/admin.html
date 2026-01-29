@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Manager - Admin</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Expense Manager - Admin</h1>
+        <nav style="display: inline-block; margin-left: 20px;"></nav>
+        <button onclick="logout()" style="float: right; margin: 10px; background: red; color: white; border: none; padding: 5px;">Logout</button>
+    </header>
+
+    <div class="container">
+        <h2>User Management</h2>
+        <p id="admin-msg"></p>
+        <table border="1" style="width: 100%; border-collapse: collapse; background: white;">
+            <thead>
+                <tr style="background: #f4f4f4;">
+                    <th style="padding: 10px;">ID</th>
+                    <th style="padding: 10px;">Username</th>
+                    <th style="padding: 10px;">Email</th>
+                    <th style="padding: 10px;">Role</th>
+                </tr>
+            </thead>
+            <tbody id="user-table-body">
+                <!-- Users -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="/js/app.js"></script>
+    <script>
+        if(!localStorage.getItem('token')) {
+            window.location.href = 'index.html';
+        } else {
+            loadAdminUsers();
+        }
+    </script>
+</body>
+</html>

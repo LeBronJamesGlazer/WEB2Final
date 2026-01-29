@@ -2,6 +2,7 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const nodemailer = require('nodemailer');
+const mg = require('nodemailer-mailgun-transport');
 
 // Generate JWT
 const generateToken = (id) => {
@@ -49,10 +50,19 @@ exports.registerUser = async (req, res, next) => {
 
     if (user) {
         // Send Welcome Email (Requirement 7.2)
-        // Note: In production, use environment variables for real credentials
-        // Here we use Ethereal for demonstration
         let transporter;
-        if (process.env.EMAIL_SERVICE === 'ethereal') {
+        
+        if (process.env.EMAIL_SERVICE === 'Mailgun') {
+            const auth = {
+                auth: {
+                    api_key: process.env.MAILGUN_API_KEY,
+                    domain: process.env.MAILGUN_DOMAIN
+                }
+            };
+            transporter = nodemailer.createTransport(mg(auth));
+            console.log("Mailgun API Transport Configured");
+            
+        } else if (process.env.EMAIL_SERVICE === 'ethereal') {
              let testAccount = await nodemailer.createTestAccount();
              transporter = nodemailer.createTransport({
                 host: "smtp.ethereal.email",
@@ -64,8 +74,19 @@ exports.registerUser = async (req, res, next) => {
                 },
             });
             console.log("Ethereal Email Setup Complete");
+        } else if (process.env.EMAIL_SERVICE === 'smtp') {
+             transporter = nodemailer.createTransport({
+                host: process.env.EMAIL_HOST,
+                port: process.env.EMAIL_PORT,
+                secure: false, // true for 465, false for other ports
+                auth: {
+                    user: process.env.EMAIL_USER,
+                    pass: process.env.EMAIL_PASS
+                }
+            });
+            console.log("SMTP Transport Configured");
         } else {
-             // Use service defined in .env (e.g., 'SendGrid', 'Mailgun', 'gmail')
+             // Fallback
              transporter = nodemailer.createTransport({
                 service: process.env.EMAIL_SERVICE, 
                 auth: {
@@ -76,7 +97,7 @@ exports.registerUser = async (req, res, next) => {
         }
 
         const mailOptions = {
-            from: '"Expense Tracker App" <no-reply@expensetracker.com>',
+            from: process.env.EMAIL_FROM || `"Expense Tracker App" <postmaster@${process.env.MAILGUN_DOMAIN}>`,
             to: email,
             subject: 'Welcome to Expense Tracker!',
             text: `Hi ${username}, welcome to your new expense manager. Start tracking today!`,
