@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Transaction = require('../models/Transaction');
 
 // @desc    Get user profile
 // @route   GET /api/users/profile
@@ -45,6 +46,30 @@ exports.updateUserProfile = async (req, res, next) => {
         email: updatedUser.email,
         role: updatedUser.role
       });
+    } else {
+      res.status(404);
+      throw new Error('User not found');
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+// @desc    Delete user profile (Account)
+// @route   DELETE /api/users/profile
+// @access  Private
+exports.deleteUserAccount = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    if (user) {
+      // 1. Delete all transactions for this user
+      await Transaction.deleteMany({ user: req.user.id });
+      
+      // 2. Delete the user
+      await user.deleteOne();
+
+      res.json({ message: 'User account and data deleted successfully' });
     } else {
       res.status(404);
       throw new Error('User not found');

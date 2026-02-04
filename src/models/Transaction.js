@@ -30,4 +30,7 @@ const TransactionSchema = new mongoose.Schema({
   }
 });
 
+// Compound Index for optimization
+TransactionSchema.index({ user: 1, createdAt: -1 });
+
 module.exports = mongoose.model('Transaction', TransactionSchema);

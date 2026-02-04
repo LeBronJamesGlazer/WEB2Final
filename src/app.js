@@ -15,7 +15,9 @@ const premiumRoutes = require('./routes/premiumRoutes');
 const app = express();
 
 // Middleware
-app.use(express.json()); // Body parser
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true })); // Form data parser
+
 app.use(cors());
 app.use(helmet({
     contentSecurityPolicy: false,

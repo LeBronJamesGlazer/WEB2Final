@@ -1,28 +1,54 @@
-# Personal Expense Manager
+# 💰 Personal Expense Manager
 
-A full-stack Node.js application for tracking personal income and expenses. This project demonstrates authentication, role-based access control, CRUD operations, and email integration.
+A full-stack Node.js application for tracking personal finances. This project features secure authentication, role-based access control (RBAC), interactive data visualization, and is optimized for cloud deployment.
 
-## Features
+## 🚀 Live Demo
+*(Once deployed, paste your Render URL here)*
 
-- **User Authentication:** Secure Registration and Login using JWT and bcrypt.
-- **Transaction Management:** Create, Read, Update, and Delete income/expense records.
-- **Role-Based Access Control (RBAC):** 'User', 'Admin', and 'Premium' roles.
-- **Email Notification:** Sends a "Welcome" email upon registration (Simulated with Ethereal/Nodemailer).
-- **Security:** Helmet for headers, CORS enabled, Password Hashing, Input Validation (Joi).
+## ✨ Features
 
-## Tech Stack
+- **🔐 Secure Authentication:** User registration and login powered by JSON Web Tokens (JWT) and Bcrypt password hashing.
+- **💸 Transaction Tracking:** Add, view, and delete income and expense records.
+- **📊 Data Visualization:** Interactive Chart.js doughnut chart for real-time visual breakdown of finances.
+- **🛡️ Role-Based Access Control (RBAC):**
+  - **User:** Standard access to manage personal transactions.
+  - **Premium:** Access to advanced analytics and exclusive content.
+  - **Admin:** Management capabilities to view all system users.
+- **📧 Email Notifications:** Integrated email service (Nodemailer) for registration welcome emails.
+- **🔒 Security:** Protected headers with Helmet, CORS configuration, and input validation using Joi.
+
+## 🛠️ Tech Stack
 
 - **Backend:** Node.js, Express.js
-- **Database:** MongoDB, Mongoose
-- **Authentication:** JSON Web Tokens (JWT)
-- **Validation:** Joi
-- **Frontend:** HTML5, CSS3, Vanilla JavaScript
+- **Database:** MongoDB Atlas (Cloud) using Mongoose ODM
+- **Frontend:** HTML5, CSS3, Vanilla JavaScript, Chart.js
+- **Authentication:** JWT (JSON Web Tokens)
+- **Deployment:** Render (Web Service)
 
-## Setup Instructions
+## 📂 Project Structure
+
+```
+WEB2Final/
+├── public/             # Static frontend files (HTML, CSS, JS)
+│   ├── js/app.js       # Main frontend logic (Fetch API calls, Chart.js)
+│   └── ...
+├── src/
+│   ├── config/         # DB connection & configuration
+│   ├── controllers/    # Request logic (Auth, Transactions, Users)
+│   ├── middleware/     # Auth checks, Error handling, Role verification
+│   ├── models/         # Mongoose Schemas (User, Transaction)
+│   ├── routes/         # API Route definitions
+│   ├── app.js          # Express app setup
+│   └── server.js       # Entry point
+├── package.json        # Dependencies & Scripts
+└── README.md           # Documentation
+```
+
+## ⚙️ Local Installation & Setup
 
 1.  **Clone the repository:**
     ```bash
-    git clone <repository_url>
+    git clone <your-repo-url>
     cd WEB2Final
     ```
 
@@ -31,61 +57,62 @@ A full-stack Node.js application for tracking personal income and expenses. This
     npm install
     ```
 
-3.  **Environment Variables:**
-    Create a `.env` file in the root directory (or rename `.env.example` if provided) and add:
+3.  **Configure Environment:**
+    Create a `.env` file in the root directory:
     ```env
     PORT=3000
-    MONGO_URI=your_mongodb_connection_string
-    JWT_SECRET=your_jwt_secret
-    EMAIL_SERVICE=ethereal
+    MONGO_URI=mongodb+srv://<user>:<password>@cluster0.y4lkgxm.mongodb.net/web2final?retryWrites=true&w=majority
+    JWT_SECRET=your_super_secret_key
+    NODE_ENV=development
+
+    # Email Config (Optional - utilizing Mailtrap/Nodemailer)
+    EMAIL_HOST=smtp.mailtrap.io
+    EMAIL_PORT=2525
+    EMAIL_USER=your_mailtrap_user
+    EMAIL_PASS=your_mailtrap_password
     ```
 
-4.  **Run the App:**
+4.  **Run the Application:**
     ```bash
     npm start
     ```
-    The server will start on `http://localhost:3000`.
+    Access the app at: `http://localhost:3000`
 
-5.  **Open in Browser:**
-    Navigate to `http://localhost:3000` to use the web interface.
+## 📡 API Endpoints
 
-## API Documentation
-
-### Authentication
-
-- `POST /api/auth/register`
-    - Body: `{ "username": "John", "email": "john@test.com", "password": "123", "role": "user" }`
-    - Returns: User object + Token
-- `POST /api/auth/login`
-    - Body: `{ "email": "john@test.com", "password": "123" }`
-    - Returns: User object + Token
-
-### Users (Protected)
-
-- `GET /api/users/profile` - Get logged-in user details.
-- `PUT /api/users/profile` - Update profile.
-- `GET /api/users` - Admin only: List all users.
+### Auth
+- `POST /api/auth/register` - Register a new user
+- `POST /api/auth/login` - Login and receive JWT
 
 ### Transactions (Protected)
+- `GET /api/transactions` - Get all user transactions
+- `POST /api/transactions` - Add a new transaction
+- `DELETE /api/transactions/:id` - Remove a transaction
 
-- `GET /api/transactions` - Get all transactions for the user.
-- `POST /api/transactions` - Create a transaction.
-    - Body: `{ "text": "Salary", "amount": 5000, "type": "income" }`
-- `PUT /api/transactions/:id` - Update a transaction.
-- `DELETE /api/transactions/:id` - Delete a transaction.
+### Premium (Role: Premium)
+- `GET /api/premium/content` - Access exclusive charts and data
 
-## Screenshots
+### Admin (Role: Admin)
+- `GET /api/admin/users` - View all registered users
 
-*(Placeholders for actual screenshots)*
+## ☁️ Deployment Guide (Render)
 
-1.  **Login Screen**
-    ![Login Screen](screenshots/login.png)
-    *Secure login interface.*
+This project is configured for seamless deployment on [Render](https://render.com).
 
-2.  **Dashboard**
-    ![Dashboard](screenshots/dashboard.png)
-    *View your income and expenses in a list.*
+1.  **Push to GitHub:** Ensure your code is pushed to a GitHub repository.
+2.  **Create Web Service:**
+    - Go to Render Dashboard -> New -> Web Service.
+    - Connect your repository.
+3.  **Settings:**
+    - **Runtime:** Node
+    - **Build Command:** `npm install`
+    - **Start Command:** `npm start`
+4.  **Environment Variables:**
+    Add the following in the Render Environment tab:
+    - `MONGO_URI`: Your MongoDB Atlas connection string.
+    - `JWT_SECRET`: A strong random string.
+    - `NODE_ENV`: `production`
+5.  **Deploy:** Click "Create Web Service".
 
-3.  **Add Transaction**
-    ![Add Transaction](screenshots/add.png)
-    *Form to add new financial records.*
+---
+*Created for Web2 Final Project.*

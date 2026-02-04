@@ -2,6 +2,9 @@
   "name": "web2final",
   "version": "1.0.0",
   "main": "src/server.js",
+  "engines": {
+    "node": ">=18.20.0"
+  },
   "scripts": {
     "start": "node src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -21,6 +24,8 @@
     "mongoose": "^8.21.1",
     "morgan": "^1.10.1",
     "nodemailer": "^7.0.12",
-    "nodemailer-mailgun-transport": "^2.1.5"
+    "nodemailer-mailgun-transport": "^2.1.5",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   }
 }
