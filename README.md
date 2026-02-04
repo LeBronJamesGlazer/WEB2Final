@@ -1,23 +1,23 @@
-# 💰 Personal Expense Manager
+#  Personal Expense Manager
 
 A full-stack Node.js application for tracking personal finances. This project features secure authentication, role-based access control (RBAC), interactive data visualization, and is optimized for cloud deployment.
 
-## 🚀 Live Demo
-*(Once deployed, paste your Render URL here)*
+##  Live Demo
+https://web2final-2.onrender.com
 
 ## ✨ Features
 
-- **🔐 Secure Authentication:** User registration and login powered by JSON Web Tokens (JWT) and Bcrypt password hashing.
-- **💸 Transaction Tracking:** Add, view, and delete income and expense records.
-- **📊 Data Visualization:** Interactive Chart.js doughnut chart for real-time visual breakdown of finances.
-- **🛡️ Role-Based Access Control (RBAC):**
+- ** Secure Authentication:** User registration and login powered by JSON Web Tokens (JWT) and Bcrypt password hashing.
+- ** Transaction Tracking:** Add, view, and delete income and expense records.
+- ** Data Visualization:** Interactive Chart.js doughnut chart for real-time visual breakdown of finances.
+- ** Role-Based Access Control (RBAC):**
   - **User:** Standard access to manage personal transactions.
   - **Premium:** Access to advanced analytics and exclusive content.
   - **Admin:** Management capabilities to view all system users.
-- **📧 Email Notifications:** Integrated email service (Nodemailer) for registration welcome emails.
-- **🔒 Security:** Protected headers with Helmet, CORS configuration, and input validation using Joi.
+- ** Email Notifications:** Integrated email service (Nodemailer) for registration welcome emails.
+- ** Security:** Protected headers with Helmet, CORS configuration, and input validation using Joi.
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 - **Backend:** Node.js, Express.js
 - **Database:** MongoDB Atlas (Cloud) using Mongoose ODM
@@ -25,7 +25,7 @@ A full-stack Node.js application for tracking personal finances. This project fe
 - **Authentication:** JWT (JSON Web Tokens)
 - **Deployment:** Render (Web Service)
 
-## 📂 Project Structure
+##  Project Structure
 
 ```
 WEB2Final/
@@ -44,7 +44,7 @@ WEB2Final/
 └── README.md           # Documentation
 ```
 
-## ⚙️ Local Installation & Setup
+##  Local Installation & Setup
 
 1.  **Clone the repository:**
     ```bash
@@ -78,7 +78,7 @@ WEB2Final/
     ```
     Access the app at: `http://localhost:3000`
 
-## 📡 API Endpoints
+##  API Endpoints
 
 ### Auth
 - `POST /api/auth/register` - Register a new user
@@ -95,7 +95,7 @@ WEB2Final/
 ### Admin (Role: Admin)
 - `GET /api/admin/users` - View all registered users
 
-## ☁️ Deployment Guide (Render)
+##  Deployment Guide (Render)
 
 This project is configured for seamless deployment on [Render](https://render.com).
 
